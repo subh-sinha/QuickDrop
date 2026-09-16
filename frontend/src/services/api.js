@@ -45,35 +45,18 @@ export const uploadFile = async (file, onProgress) => {
  * @returns {Promise<{fileName: string}>}
  */
 export const downloadFile = async (token) => {
-  const response = await api.get(`/api/v1/files/download/${token}`, {
-    responseType: 'blob',
-  });
-
-  let fileName = `quickdrop-${token}`;
-  const disposition = response.headers['content-disposition'];
-
-  if (disposition && disposition.includes('filename=')) {
-    const filenameMatch = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-    if (filenameMatch && filenameMatch[1]) {
-      fileName = filenameMatch[1].replace(/['"]/g, '');
-    }
-  }
-
-  const blob = new Blob([response.data], {
-    type: response.headers['content-type'] || 'application/octet-stream',
-  });
-
-  const downloadUrl = window.URL.createObjectURL(blob);
+  // Do not fetch the file with Axios. Axios waits for the complete Cloudinary
+  // response, keeps it in JavaScript memory, then starts a second download.
+  // A normal browser navigation follows the backend's redirect to Cloudinary
+  // and lets the browser stream the file straight to disk.
   const link = document.createElement('a');
-  link.href = downloadUrl;
-  link.setAttribute('download', fileName);
+  link.href = `${API_BASE_URL}/api/v1/files/download/${encodeURIComponent(token)}`;
+  link.style.display = 'none';
   document.body.appendChild(link);
   link.click();
+  link.remove();
 
-  link.parentNode.removeChild(link);
-  window.URL.revokeObjectURL(downloadUrl);
-
-  return { fileName };
+  return { fileName: `quickdrop-${token}` };
 };
 
 export default api;

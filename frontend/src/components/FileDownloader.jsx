@@ -142,7 +142,7 @@ const FileDownloader = () => {
             <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
           <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
-            Download complete ✓
+            Download started ✓
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 mb-5 font-mono bg-slate-50 py-1.5 px-3 rounded-lg inline-block border border-slate-200/60 max-w-full truncate">
             {downloadedFileName || `quickdrop-${fullToken}`}
