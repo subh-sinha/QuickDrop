@@ -1,0 +1,1 @@
+export { uploadController, downloadController } from "./file.controller.js";
