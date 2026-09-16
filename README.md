@@ -6,7 +6,7 @@ No account or login is required. Upload a file from one device, get a temporary 
 
 ## ✨ Features
 
-* 📤 Upload files up to **1 MB**
+* 📤 Upload files up to **2 MB**
 * 🔢 Generate a unique **6-digit transfer code**
 * 📥 Download files using the code
 * ⏱️ Temporary file storage with automatic expiration
